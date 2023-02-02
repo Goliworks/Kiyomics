@@ -4,13 +4,13 @@ export default class Container extends HTMLElement {
 
     frames: HTMLImageElement[] = [];
     currentFrame = 0;
-    imgFrame: HTMLDivElement;
+    imgFrame: HTMLImageElement;
 
     constructor() {
         super();
         // this.innerHTML = "<span>Playmics container</span>";
         const lsUrl = this.getAttribute("src");
-        this.imgFrame = document.createElement("div");
+        this.imgFrame = document.createElement("img");
         this.imgFrame.setAttribute("id", "img-frame");
         this.appendChild(this.imgFrame);
         if (lsUrl) {
@@ -37,7 +37,7 @@ export default class Container extends HTMLElement {
 
     private displayFrame() {
         console.log(this.frames[this.currentFrame].src);
-        this.imgFrame.style.backgroundImage = `url(${this.frames[this.currentFrame].src})`;
+        this.imgFrame.setAttribute("src", this.frames[this.currentFrame].src);
     }
 
     private changeFrame() {
