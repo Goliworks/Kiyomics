@@ -1,5 +1,4 @@
 import './style.css'
+import PlaymicsApp from "./playmics-app";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-    <div>Hello, world!</div>
-`
+customElements.define('playmics-app', PlaymicsApp);
