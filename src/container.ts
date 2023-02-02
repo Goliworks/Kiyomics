@@ -7,7 +7,6 @@ export default class Container extends HTMLElement {
 
     constructor() {
         super();
-        // this.innerHTML = "<span>Playmics container</span>";
         const lsUrl = this.getAttribute("src");
         if (lsUrl) {
             this.preloadImages(lsUrl);
@@ -16,9 +15,14 @@ export default class Container extends HTMLElement {
 
     private preloadImages(url: string) {
         LsReader.parse(url).then(frames => {
-            frames.forEach((e, i) => {
+            frames.forEach(async (e, i) => {
                 const img = new Image();
-                img.src = e;
+                let url = e;
+                // Create an arraybuffer if the image is a gif.
+                if (e.includes('.gif')) {
+                    url = await this.generateArrayBuffer(e);
+                }
+                img.src = url;
                 img.onload = () => {
                     if (frames.length - 1 === i) {
                         console.log(this.frames)
@@ -26,8 +30,24 @@ export default class Container extends HTMLElement {
                         this.changeFrame();
                     }
                 }
-                this.frames.push(img);
+                this.frames[i] = img;
             })
+        });
+    }
+
+    async generateArrayBuffer(url: string): Promise<string> {
+        return new Promise((resolve) => {
+            const xhr = new XMLHttpRequest();
+            xhr.onload = () => {
+                const arrayBuffer = xhr.response;
+                console.log(arrayBuffer.byteLength);
+                const blob = new Blob([arrayBuffer]);
+                const imgUrl = URL.createObjectURL(blob);
+                resolve(imgUrl);
+            }
+            xhr.open('GET', url);
+            xhr.responseType = "arraybuffer";
+            xhr.send();
         });
     }
 
@@ -36,7 +56,14 @@ export default class Container extends HTMLElement {
         if (previousFrame !== null) {
             this.removeChild(this.frames[previousFrame]);
         }
-        this.appendChild(this.frames[this.currentFrame]);
+        const frame = this.frames[this.currentFrame];
+        this.appendChild(frame);
+        // Force gif replay.
+        if (frame.src.includes('blob:')) {
+            setTimeout(() => {
+                frame.src = frame.src;
+            })
+        }
     }
 
     private changeFrame() {
