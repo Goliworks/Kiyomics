@@ -27,6 +27,7 @@ export default class Container extends HTMLElement {
                     if (frames.length - 1 === i) {
                         console.log(this.frames)
                         this.displayFrame();
+                        this.changeFrame();
                     }
                 }
                 this.frames.push(img);
@@ -37,5 +38,17 @@ export default class Container extends HTMLElement {
     private displayFrame() {
         console.log(this.frames[this.currentFrame].src);
         this.imgFrame.style.backgroundImage = `url(${this.frames[this.currentFrame].src})`;
+    }
+
+    private changeFrame() {
+        this.onclick = (e) => {
+            //  Click left
+            if (e.offsetX < this.offsetWidth / 2) {
+                this.currentFrame = this.currentFrame === 0 ? this.currentFrame : this.currentFrame - 1;
+            } else { // click right
+                this.currentFrame = this.currentFrame === this.frames.length - 1 ? this.currentFrame : this.currentFrame + 1;
+            }
+            this.displayFrame();
+        }
     }
 }
