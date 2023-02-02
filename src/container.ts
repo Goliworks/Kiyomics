@@ -4,15 +4,11 @@ export default class Container extends HTMLElement {
 
     frames: HTMLImageElement[] = [];
     currentFrame = 0;
-    imgFrame: HTMLImageElement;
 
     constructor() {
         super();
         // this.innerHTML = "<span>Playmics container</span>";
         const lsUrl = this.getAttribute("src");
-        this.imgFrame = document.createElement("img");
-        this.imgFrame.setAttribute("id", "img-frame");
-        this.appendChild(this.imgFrame);
         if (lsUrl) {
             this.preloadImages(lsUrl);
         }
@@ -35,20 +31,30 @@ export default class Container extends HTMLElement {
         });
     }
 
-    private displayFrame() {
+    private displayFrame(previousFrame: number | null = null) {
         console.log(this.frames[this.currentFrame].src);
-        this.imgFrame.setAttribute("src", this.frames[this.currentFrame].src);
+        if (previousFrame !== null) {
+            this.removeChild(this.frames[previousFrame]);
+        }
+        this.appendChild(this.frames[this.currentFrame]);
     }
 
     private changeFrame() {
         this.onclick = (e) => {
             //  Click left
+            let previous = null;
             if (e.offsetX < this.offsetWidth / 2) {
-                this.currentFrame = this.currentFrame === 0 ? this.currentFrame : this.currentFrame - 1;
+                if (this.currentFrame !== 0) {
+                    previous = this.currentFrame;
+                    this.currentFrame--;
+                }
             } else { // click right
-                this.currentFrame = this.currentFrame === this.frames.length - 1 ? this.currentFrame : this.currentFrame + 1;
+                if (this.currentFrame !== this.frames.length - 1) {
+                    previous = this.currentFrame;
+                    this.currentFrame++;
+                }
             }
-            this.displayFrame();
+            this.displayFrame(previous);
         }
     }
 }
