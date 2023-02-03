@@ -46,13 +46,13 @@ export default class Container extends HTMLElement {
             }, 10);
         }
         const frame = this.frames[this.currentFrame];
-        if (frame.src.includes('blob:')) {
+        // Force gif replay.
+        if (frame.src.includes('blob:') && previousFrame && previousFrame < this.currentFrame) {
             setTimeout(() => {
                 frame.src = frame.src;
             })
         }
         this.appendChild(frame);
-        // Force gif replay.
     }
 
     private initKeyboard() {
