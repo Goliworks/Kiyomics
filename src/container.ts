@@ -72,13 +72,10 @@ export default class Container extends HTMLElement {
         this.onclick = (e) => {
             //  Click left
             if (e.offsetX < this.offsetWidth / 2) {
-                if (this.currentFrame !== 0) {
-                    this.changeFrame(ChangeFrameEnum.LEFT);
-                }
+                this.changeFrame(ChangeFrameEnum.LEFT);
+
             } else { // click right
-                if (this.currentFrame !== this.frames.length - 1) {
-                    this.changeFrame(ChangeFrameEnum.RIGHT);
-                }
+                this.changeFrame(ChangeFrameEnum.RIGHT);
             }
         }
     }
@@ -87,12 +84,16 @@ export default class Container extends HTMLElement {
         let previous = null;
         switch (change) {
             case ChangeFrameEnum.LEFT:
-                previous = this.currentFrame;
-                this.currentFrame--;
+                if (this.currentFrame !== 0) {
+                    previous = this.currentFrame;
+                    this.currentFrame--;
+                }
                 break;
             case ChangeFrameEnum.RIGHT:
-                previous = this.currentFrame;
-                this.currentFrame++;
+                if (this.currentFrame !== this.frames.length - 1) {
+                    previous = this.currentFrame;
+                    this.currentFrame++;
+                }
                 break;
         }
         this.displayFrame(previous);
