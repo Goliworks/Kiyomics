@@ -10,10 +10,10 @@ export default class PlaymicsApp extends HTMLElement {
         this.style.width = `${this.width}px`;
         this.style.height = `${this.height}px`;
 
-        this.intContainer();
+        this.initContainer();
     }
 
-    private intContainer() {
+    private initContainer() {
         const container = document.createElement("playmics-container");
         container.style.width = this.style.width;
         container.style.height = this.style.height;
