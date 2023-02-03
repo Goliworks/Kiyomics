@@ -1,5 +1,5 @@
 import {LsReader} from "./ls-reader";
-import {Utils} from "./utils";
+import {Utils, ChangeFrameEnum} from "./utils";
 
 export default class Container extends HTMLElement {
 
@@ -12,6 +12,7 @@ export default class Container extends HTMLElement {
         if (lsUrl) {
             this.preloadImages(lsUrl);
         }
+        this.initKeyboard();
     }
 
     private preloadImages(url: string) {
@@ -28,7 +29,7 @@ export default class Container extends HTMLElement {
                     if (frames.length - 1 === i) {
                         console.log(this.frames)
                         this.displayFrame();
-                        this.changeFrame();
+                        this.initTouch();
                     }
                 }
                 this.frames[i] = img;
@@ -54,22 +55,46 @@ export default class Container extends HTMLElement {
         // Force gif replay.
     }
 
-    private changeFrame() {
+    private initKeyboard() {
+        document.addEventListener('keydown', (e) => {
+            switch (e.key) {
+                case "ArrowLeft":
+                    this.changeFrame(ChangeFrameEnum.LEFT);
+                    break;
+                case "ArrowRight":
+                    this.changeFrame(ChangeFrameEnum.RIGHT);
+                    break;
+            }
+        })
+    }
+
+    private initTouch() {
         this.onclick = (e) => {
             //  Click left
-            let previous = null;
             if (e.offsetX < this.offsetWidth / 2) {
                 if (this.currentFrame !== 0) {
-                    previous = this.currentFrame;
-                    this.currentFrame--;
+                    this.changeFrame(ChangeFrameEnum.LEFT);
                 }
             } else { // click right
                 if (this.currentFrame !== this.frames.length - 1) {
-                    previous = this.currentFrame;
-                    this.currentFrame++;
+                    this.changeFrame(ChangeFrameEnum.RIGHT);
                 }
             }
-            this.displayFrame(previous);
         }
+    }
+
+    private changeFrame(change: ChangeFrameEnum) {
+        let previous = null;
+        switch (change) {
+            case ChangeFrameEnum.LEFT:
+                previous = this.currentFrame;
+                this.currentFrame--;
+                break;
+            case ChangeFrameEnum.RIGHT:
+                previous = this.currentFrame;
+                this.currentFrame++;
+                break;
+        }
+        this.displayFrame(previous);
     }
 }
