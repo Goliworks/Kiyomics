@@ -22,6 +22,12 @@ playmics-app {
     color: white;
 }
 
+playmics-container {
+    position: relative;
+    display: block;
+    overflow: hidden;
+}
+
 playmics-container img {
     width: 100%;
     height: 100%;

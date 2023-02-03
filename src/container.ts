@@ -54,16 +54,19 @@ export default class Container extends HTMLElement {
     private displayFrame(previousFrame: number | null = null) {
         console.log(this.frames[this.currentFrame].src);
         if (previousFrame !== null) {
-            this.removeChild(this.frames[previousFrame]);
+            // Avoid possible blinking.
+            setTimeout(() => {
+                this.removeChild(this.frames[previousFrame]);
+            }, 10);
         }
         const frame = this.frames[this.currentFrame];
-        this.appendChild(frame);
-        // Force gif replay.
         if (frame.src.includes('blob:')) {
             setTimeout(() => {
                 frame.src = frame.src;
             })
         }
+        this.appendChild(frame);
+        // Force gif replay.
     }
 
     private changeFrame() {
