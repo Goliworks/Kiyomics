@@ -17,19 +17,19 @@ body {
     min-height: 100vh;
 }
 
-playmics-app {
+kiyomics-app {
     background: black;
     color: white;
 }
 
-playmics-container {
+kiyomics-container {
     position: relative;
     display: block;
     overflow: hidden;
     cursor: pointer;
 }
 
-playmics-container img {
+kiyomics-container img {
     width: 100%;
     height: 100%;
     object-fit: contain;

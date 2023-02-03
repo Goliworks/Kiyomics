@@ -1,4 +1,4 @@
-export default class PlaymicsApp extends HTMLElement {
+export default class KiyomicsApp extends HTMLElement {
 
     width: string;
     height: string;
@@ -14,7 +14,7 @@ export default class PlaymicsApp extends HTMLElement {
     }
 
     private initContainer() {
-        const container = document.createElement("playmics-container");
+        const container = document.createElement("kiyomics-container");
         container.style.width = this.style.width;
         container.style.height = this.style.height;
         container.setAttribute("src", this.getAttribute("src") ?? '');

@@ -1,6 +1,6 @@
 import './style.css'
-import PlaymicsApp from "./playmics-app";
+import KiyomicsApp from "./kiyomics-app";
 import Container from "./container";
 
-customElements.define('playmics-app', PlaymicsApp);
-customElements.define('playmics-container', Container);
+customElements.define('kiyomics-app', KiyomicsApp);
+customElements.define('kiyomics-container', Container);
