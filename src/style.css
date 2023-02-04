@@ -27,6 +27,11 @@ kiyomics-container {
     display: block;
     overflow: hidden;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+kiyomics-container::selection {
+    background: transparent;
 }
 
 kiyomics-container img {
