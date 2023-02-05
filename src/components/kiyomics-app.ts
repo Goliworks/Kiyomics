@@ -1,4 +1,4 @@
-import {Gesture} from "./gesture";
+import {Gesture} from "../utils/gesture";
 
 export default class KiyomicsApp extends HTMLElement {
 

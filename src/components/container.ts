@@ -1,5 +1,5 @@
-import {LsReader} from "./ls-reader";
-import {Utils, ChangeFrameEnum} from "./utils";
+import {LsReader} from "../utils/ls-reader";
+import {Utils, ChangeFrameEnum} from "../utils/utils";
 
 export default class Container extends HTMLElement {
 

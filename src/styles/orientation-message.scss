@@ -1,0 +1,88 @@
+kiyomics-orientation-message {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  color: white;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  > span {
+    padding: 20px;
+    font-size: 25px;
+    text-align: center;
+  }
+
+  .phone-icon {
+    position: relative;
+    animation: 3s infinite running anim-phone-icon;
+    .arrow {
+      position: absolute;
+      width: 120px;
+      height: 25px;
+      overflow: hidden;
+      top: -30px;
+      left: -35px;
+      animation: 3s infinite running anim-phone-arrow;
+      &-line {
+        width: 120px;
+        height: 120px;
+        border: 2px solid cornflowerblue;
+        border-radius: 100%;
+      }
+      &-head {
+        position: absolute;
+        display : inline-block;
+        height : 0;
+        width : 0;
+        top: 10px;
+        left:13px;
+        border-right : 15px solid transparent;
+        border-bottom : 15px solid cornflowerblue;
+      }
+    }
+    .phone {
+      width: 50px;
+      height: 90px;
+      border: 2px solid cornflowerblue;
+      border-radius: 5px;
+      &-glass {
+        position: relative;
+        width: 75%;
+        height: 80%;
+        border: 1px solid cornflowerblue;
+        left: 5px;
+        top: 5px;
+      }
+      &-button {
+        position: relative;
+        width: 8px;
+        height: 5px;
+        border: 1px solid cornflowerblue;
+        left: calc(50% - 5px);
+        border-radius: 100%;
+        top:7px
+      }
+    }
+  }
+}
+
+@keyframes anim-phone-icon {
+  0% { rotate: 0deg; }
+  20% { rotate: 0deg; }
+  60% { rotate: -90deg; }
+  100% { rotate: -90deg; }
+}
+
+@keyframes anim-phone-arrow {
+  0% { opacity: 0; }
+  40% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+@media all and (orientation: landscape) {
+  kiyomics-orientation-message {
+    display: none;
+  }
+}
