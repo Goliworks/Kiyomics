@@ -20,6 +20,9 @@ export default class KiyomicsApp extends HTMLElement {
         this.gesture = new Gesture(this);
         this.initTouch();
 
+        const orientationMessage = document.createElement('kiyomics-orientation-message');
+        this.appendChild(orientationMessage);
+
         const resizeObserver = new ResizeObserver((entries) => {
             const width = entries[0].contentRect.width + 'px';
             const height = entries[0].contentRect.height + 'px';
