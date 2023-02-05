@@ -8,12 +8,6 @@ kiyomics-orientation-message {
   justify-content: center;
   align-items: center;
 
-  > span {
-    padding: 20px;
-    font-size: 25px;
-    text-align: center;
-  }
-
   .phone-icon {
     position: relative;
     animation: 3s infinite running anim-phone-icon;
