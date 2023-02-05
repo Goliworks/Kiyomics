@@ -50,7 +50,7 @@ export default class Container extends HTMLElement {
         if (frame.src.includes('blob:') && previousFrame && previousFrame < this.currentFrame) {
             setTimeout(() => {
                 frame.src = frame.src;
-            })
+            },5);
         }
         this.appendChild(frame);
     }
