@@ -1,4 +1,4 @@
-import './style.css'
+import './style.scss'
 import KiyomicsApp from "./kiyomics-app";
 import Container from "./container";
 import OrientationMessage from "./orientation-message";
