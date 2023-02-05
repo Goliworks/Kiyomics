@@ -29,6 +29,9 @@ export default class KiyomicsApp extends HTMLElement {
             this.resizeContainer(width, height)
         })
         resizeObserver.observe(this);
+
+        const loadingScreen = document.createElement('kiyomics-loading');
+        this.appendChild(loadingScreen);
     }
 
     private initContainer() {
