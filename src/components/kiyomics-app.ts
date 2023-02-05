@@ -30,8 +30,17 @@ export default class KiyomicsApp extends HTMLElement {
         })
         resizeObserver.observe(this);
 
+        // Add loading screen
         const loadingScreen = document.createElement('kiyomics-loading');
         this.appendChild(loadingScreen);
+        // Remove loading screen when all images are loaded.
+        document.addEventListener("kEvent-loading-end", () => {
+            console.log("yay");
+            loadingScreen.classList.add("disabled");
+            setTimeout(() => {
+                this.removeChild(loadingScreen)
+            }, 600); // same value in ms than css animation.
+        });
     }
 
     private initContainer() {

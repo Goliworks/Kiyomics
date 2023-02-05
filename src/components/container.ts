@@ -30,6 +30,8 @@ export default class Container extends HTMLElement {
                         console.log(this.frames)
                         this.displayFrame();
                         this.initTouch();
+                        const event = new Event("kEvent-loading-end");
+                        document.dispatchEvent(event);
                     }
                 }
                 this.frames[i] = img;
