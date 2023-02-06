@@ -1,4 +1,5 @@
 import {Gesture} from "../utils/gesture";
+import {EventsEnum} from "../utils/enums";
 
 export default class KiyomicsApp extends HTMLElement {
 
@@ -34,7 +35,7 @@ export default class KiyomicsApp extends HTMLElement {
         const loadingScreen = document.createElement('kiyomics-loading');
         this.appendChild(loadingScreen);
         // Remove loading screen when all images are loaded.
-        document.addEventListener("kEvent-loading-end", () => {
+        document.addEventListener(EventsEnum.LOADING_END, () => {
             setTimeout(() => {
                 loadingScreen.classList.add("disabled");
                 setTimeout(() => {

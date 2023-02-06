@@ -15,8 +15,3 @@ export class Utils {
         });
     }
 }
-
-export enum ChangeFrameEnum {
-    LEFT,
-    RIGHT
-}

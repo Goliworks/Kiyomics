@@ -1,5 +1,6 @@
 import {LsReader} from "../utils/ls-reader";
-import {Utils, ChangeFrameEnum} from "../utils/utils";
+import {Utils} from "../utils/utils";
+import {ChangeFrameEnum, EventsEnum} from "../utils/enums";
 
 export default class Container extends HTMLElement {
 
@@ -28,21 +29,21 @@ export default class Container extends HTMLElement {
                 img.onload = () => {
                     loadedFrames++;
                     const percentage = (100 / frames.length) * loadedFrames;
-                    const event = new CustomEvent("kEvent-loaded-img", {detail: {percentage}});
+                    const event = new CustomEvent(EventsEnum.LOADED_IMG, {detail: {percentage}});
                     document.dispatchEvent(event);
                     if (frames.length - 1 === loadedFrames) {
                         console.log(this.frames)
                         this.displayFrame();
                         this.initTouch();
                         this.initKeyboard();
-                        const event = new Event("kEvent-loading-end");
+                        const event = new Event(EventsEnum.LOADING_END);
                         document.dispatchEvent(event);
                     }
                 }
                 this.frames[i] = img;
             })
         }).catch(() => {
-            const errorEvent = new Event("kEvent-loading-error");
+            const errorEvent = new Event(EventsEnum.LOADING_ERROR);
             document.dispatchEvent(errorEvent);
         });
     }

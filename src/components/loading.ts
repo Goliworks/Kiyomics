@@ -1,3 +1,5 @@
+import {EventsEnum} from "../utils/enums";
+
 export default class Loading extends HTMLElement {
     constructor() {
         super();
@@ -6,11 +8,11 @@ export default class Loading extends HTMLElement {
         this.appendChild(loadingDiv);
 
         const progressBar = this.getElementsByClassName("progress-bar")[0] as HTMLDivElement;
-        document.addEventListener("kEvent-loaded-img", ((e: CustomEvent) => {
+        document.addEventListener(EventsEnum.LOADED_IMG, ((e: CustomEvent) => {
             progressBar.style.width = e.detail.percentage + '%';
         }) as EventListener);
 
-        document.addEventListener("kEvent-loading-error", () => {
+        document.addEventListener(EventsEnum.LOADING_ERROR, () => {
             console.log("Error");
             this.removeChild(loadingDiv);
             const errorDiv = this.errorDiv();
