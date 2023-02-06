@@ -1,7 +1,25 @@
 kiyomics-loading {
+  display: flex;
+  flex-direction: column;
   #kiyomi-fruit {
     transform-origin: bottom center;
     animation: 0.3s ease-in infinite alternate anim-kiyomi;
+  }
+
+  .loading-bar {
+    margin: 12px;
+    width: 160px;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    overflow: hidden;
+    .progress-bar {
+      background-color: #ee7100;
+      height: 100%;
+      width: 0%;
+      transition: width 200ms ;
+      border-radius: inherit;
+    }
   }
 }
 

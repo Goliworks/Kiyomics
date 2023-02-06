@@ -19,6 +19,13 @@ export default class Loading extends HTMLElement {
                 <path d="m166.79 34.39c3.2561-2.5012 7.6433-4.1291 13.87-5.6437-7.1281-1.7325-10.115 1.4603-13.87 5.6437z" fill="#60d346" stroke-width=".32521"/>
             </g>
         </svg>
+        <div class="loading-bar">
+            <div class="progress-bar"></div>
+        </div>
         `;
+        const progressBar = this.getElementsByClassName("progress-bar")[0] as HTMLDivElement;
+        document.addEventListener("kEvent-loaded-img", ((e: CustomEvent) => {
+            progressBar.style.width = e.detail.percentage + '%';
+        }) as EventListener);
     }
 }

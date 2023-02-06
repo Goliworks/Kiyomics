@@ -35,11 +35,12 @@ export default class KiyomicsApp extends HTMLElement {
         this.appendChild(loadingScreen);
         // Remove loading screen when all images are loaded.
         document.addEventListener("kEvent-loading-end", () => {
-            console.log("yay");
-            loadingScreen.classList.add("disabled");
             setTimeout(() => {
-                this.removeChild(loadingScreen)
-            }, 600); // same value in ms than css animation.
+                loadingScreen.classList.add("disabled");
+                setTimeout(() => {
+                    this.removeChild(loadingScreen)
+                }, 600); // same value in ms than css fade out.
+            }, 300); // same value in ms than css progress animation + 100ms.
         });
     }
 

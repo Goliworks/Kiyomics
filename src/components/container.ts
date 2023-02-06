@@ -17,6 +17,7 @@ export default class Container extends HTMLElement {
 
     private preloadImages(url: string) {
         LsReader.parse(url).then(frames => {
+            let loadedFrames = 0;
             frames.forEach(async (e, i) => {
                 const img = new Image();
                 let url = e;
@@ -26,7 +27,11 @@ export default class Container extends HTMLElement {
                 }
                 img.src = url;
                 img.onload = () => {
-                    if (frames.length - 1 === i) {
+                    loadedFrames++;
+                    const percentage = (100 / frames.length) * loadedFrames;
+                    const event = new CustomEvent("kEvent-loaded-img", {detail: {percentage}});
+                    document.dispatchEvent(event);
+                    if (frames.length - 1 === loadedFrames) {
                         console.log(this.frames)
                         this.displayFrame();
                         this.initTouch();
