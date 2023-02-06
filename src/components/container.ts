@@ -41,6 +41,9 @@ export default class Container extends HTMLElement {
                 }
                 this.frames[i] = img;
             })
+        }).catch(() => {
+            const errorEvent = new Event("kEvent-loading-error");
+            document.dispatchEvent(errorEvent);
         });
     }
 
@@ -57,7 +60,7 @@ export default class Container extends HTMLElement {
         if (frame.src.includes('blob:') && previousFrame && previousFrame < this.currentFrame) {
             setTimeout(() => {
                 frame.src = frame.src;
-            },5);
+            }, 5);
         }
         this.appendChild(frame);
     }

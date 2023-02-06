@@ -27,5 +27,9 @@ export default class Loading extends HTMLElement {
         document.addEventListener("kEvent-loaded-img", ((e: CustomEvent) => {
             progressBar.style.width = e.detail.percentage + '%';
         }) as EventListener);
+
+        document.addEventListener("kEvent-loading-error", () => {
+            console.log("Error");
+        });
     }
 }
