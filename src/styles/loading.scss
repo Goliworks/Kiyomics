@@ -1,6 +1,10 @@
 kiyomics-loading {
-  display: flex;
-  flex-direction: column;
+  > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   #kiyomi-fruit {
     transform-origin: bottom center;
     animation: 0.3s ease-in infinite alternate anim-kiyomi;
@@ -13,13 +17,37 @@ kiyomics-loading {
     background-color: rgba(255, 255, 255, 0.15);
     border-radius: 10px;
     overflow: hidden;
+
     .progress-bar {
       background-color: #ee7100;
       height: 100%;
       width: 0%;
-      transition: width 200ms ;
+      transition: width 200ms;
       border-radius: inherit;
     }
+  }
+
+  .error-icon {
+    width: 50px;
+    height: 50px;
+    border: 2px solid crimson;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+
+    > span {
+      font-size: 60px;
+      transform: rotate(45deg);
+      user-select: none;
+      color: crimson;
+    }
+  }
+
+  .error-message {
+    font-family: helvetica;
+    color: darkgray;
+    margin-top: 20px;
   }
 }
 

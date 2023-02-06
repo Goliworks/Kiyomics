@@ -1,7 +1,26 @@
 export default class Loading extends HTMLElement {
     constructor() {
         super();
-        this.innerHTML = `
+
+        const loadingDiv = this.loadingDiv();
+        this.appendChild(loadingDiv);
+
+        const progressBar = this.getElementsByClassName("progress-bar")[0] as HTMLDivElement;
+        document.addEventListener("kEvent-loaded-img", ((e: CustomEvent) => {
+            progressBar.style.width = e.detail.percentage + '%';
+        }) as EventListener);
+
+        document.addEventListener("kEvent-loading-error", () => {
+            console.log("Error");
+            this.removeChild(loadingDiv);
+            const errorDiv = this.errorDiv();
+            this.appendChild(errorDiv);
+        });
+    }
+
+    private loadingDiv(): HTMLDivElement {
+        const loading = document.createElement("div");
+        loading.innerHTML = `
         <svg id="kiyomi-fruit" width="100" height="100" version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <g transform="translate(-98, 0)">
                 <circle cx="148.24" cy="63.797" r="30.658" fill="#ee7100" stroke-width=".81646"/>
@@ -23,13 +42,14 @@ export default class Loading extends HTMLElement {
             <div class="progress-bar"></div>
         </div>
         `;
-        const progressBar = this.getElementsByClassName("progress-bar")[0] as HTMLDivElement;
-        document.addEventListener("kEvent-loaded-img", ((e: CustomEvent) => {
-            progressBar.style.width = e.detail.percentage + '%';
-        }) as EventListener);
+        return loading;
+    }
 
-        document.addEventListener("kEvent-loading-error", () => {
-            console.log("Error");
-        });
+    private errorDiv(): HTMLDivElement {
+        const error = document.createElement("div");
+        error.innerHTML = `
+        <div class="error-icon"><span>+</span></div>
+        <div class="error-message">An error has occurred.</div>`;
+        return error;
     }
 }
