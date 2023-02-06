@@ -12,7 +12,6 @@ export default class Container extends HTMLElement {
         if (lsUrl) {
             this.preloadImages(lsUrl);
         }
-        this.initKeyboard();
     }
 
     private preloadImages(url: string) {
@@ -35,6 +34,7 @@ export default class Container extends HTMLElement {
                         console.log(this.frames)
                         this.displayFrame();
                         this.initTouch();
+                        this.initKeyboard();
                         const event = new Event("kEvent-loading-end");
                         document.dispatchEvent(event);
                     }
