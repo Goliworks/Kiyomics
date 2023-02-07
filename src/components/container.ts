@@ -32,7 +32,6 @@ export default class Container extends HTMLElement {
                     const event = new CustomEvent(EventsEnum.LOADED_IMG, {detail: {percentage}});
                     document.dispatchEvent(event);
                     if (frames.length - 1 === loadedFrames) {
-                        console.log(this.frames)
                         this.displayFrame();
                         this.initTouch();
                         this.initKeyboard();
@@ -49,7 +48,6 @@ export default class Container extends HTMLElement {
     }
 
     private displayFrame(previousFrame: number | null = null) {
-        console.log(this.frames[this.currentFrame].src);
         if (previousFrame !== null) {
             // Avoid possible blinking.
             setTimeout(() => {

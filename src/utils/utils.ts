@@ -4,7 +4,6 @@ export class Utils {
             const xhr = new XMLHttpRequest();
             xhr.onload = () => {
                 const arrayBuffer = xhr.response;
-                console.log(arrayBuffer.byteLength);
                 const blob = new Blob([arrayBuffer]);
                 const imgUrl = URL.createObjectURL(blob);
                 resolve(imgUrl);
