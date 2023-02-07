@@ -28,8 +28,11 @@ export default class KiyomicsApp extends HTMLElement {
             const width = entries[0].contentRect.width + 'px';
             const height = entries[0].contentRect.height + 'px';
             this.resizeContainer(width, height)
-        })
+        });
         resizeObserver.observe(this);
+
+        const phoneStarter = document.createElement('kiyomics-phone-starter');
+        this.appendChild(phoneStarter);
 
         // Add loading screen
         const loadingScreen = document.createElement('kiyomics-loading');

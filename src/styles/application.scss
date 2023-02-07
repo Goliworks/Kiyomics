@@ -36,8 +36,44 @@ kiyomics-loading {
   justify-content: center;
   align-items: center;
   opacity: 1;
+
   &.disabled {
     opacity: 0;
     transition: opacity 0.6s linear;
+  }
+}
+
+kiyomics-phone-starter {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    width: 150px;
+    height: 150px;
+    font-size: 100px;
+    padding: 0;
+    border-radius: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: 8px solid #ee7100;
+
+    &::after {
+      position: absolute;
+      content: "";
+      height: 0;
+      width: 0;
+      margin-left: 12px;
+      border-top: 40px solid transparent;
+      border-bottom: 40px solid transparent;
+      border-left: 60px solid #ee7100;
+    }
   }
 }
