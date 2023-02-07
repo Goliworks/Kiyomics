@@ -6,7 +6,7 @@ export default class KiyomicsApp extends HTMLElement {
     width: string;
     height: string;
 
-    gesture: Gesture;
+    phoneStarterGesture: Gesture;
 
     container: HTMLElement | undefined;
 
@@ -18,8 +18,6 @@ export default class KiyomicsApp extends HTMLElement {
         this.style.height = `${this.height}px`;
 
         this.initContainer();
-        this.gesture = new Gesture(this);
-        this.initTouch();
 
         const orientationMessage = document.createElement('kiyomics-orientation-message');
         this.appendChild(orientationMessage);
@@ -33,6 +31,8 @@ export default class KiyomicsApp extends HTMLElement {
 
         const phoneStarter = document.createElement('kiyomics-phone-starter');
         this.appendChild(phoneStarter);
+        this.phoneStarterGesture = new Gesture(phoneStarter);
+        this.initTouch();
 
         // Add loading screen
         const loadingScreen = document.createElement('kiyomics-loading');
@@ -60,7 +60,7 @@ export default class KiyomicsApp extends HTMLElement {
     }
 
     private initTouch() {
-        this.gesture.onDoubleTap = () => {
+        this.phoneStarterGesture.onTap = () => {
             this.setFullScreen()
         }
     }

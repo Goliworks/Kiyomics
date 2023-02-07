@@ -57,7 +57,6 @@ kiyomics-phone-starter {
     position: absolute;
     width: 110%;
     height: 110%;
-    //background-image: url('http://localhost:8003/files/test/25.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -86,5 +85,17 @@ kiyomics-phone-starter {
       border-bottom: 30px solid transparent;
       border-left: 40px solid #ee7100;
     }
+  }
+}
+
+@media all and (display-mode: fullscreen) {
+  kiyomics-phone-starter {
+    display: none;
+  }
+}
+
+@media all and (min-width: 920px) {
+  kiyomics-phone-starter {
+    display: none;
   }
 }
