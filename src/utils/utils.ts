@@ -13,4 +13,12 @@ export class Utils {
             xhr.send();
         });
     }
+
+    static isMobileDevice(type = /Android|iPhone|iPad|iPod/i): boolean {
+        return type.test(navigator.userAgent);
+    }
+
+    static isAppleMobileDevice(): boolean {
+        return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
 }

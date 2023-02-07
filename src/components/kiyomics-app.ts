@@ -61,7 +61,10 @@ export default class KiyomicsApp extends HTMLElement {
 
     private initTouch() {
         this.phoneStarterGesture.onTap = () => {
-            this.setFullScreen()
+            this.setFullScreen();
+        }
+        this.phoneStarterGesture.onClick = () => {
+            this.setFullScreen();
         }
     }
 
@@ -74,7 +77,13 @@ export default class KiyomicsApp extends HTMLElement {
 
     private setFullScreen() {
         if (!document.fullscreenElement) {
-            this.requestFullscreen().finally();
+            if (this.requestFullscreen) {
+                this.requestFullscreen().finally();
+            } else if ((<any>this).webkitRequestFullscreen) {
+                // for Apple devices.
+                (<any>this).webkitRequestFullscreen();
+            }
+
         } else {
             document.exitFullscreen().finally();
         }

@@ -1,4 +1,7 @@
+import {Utils} from "./utils";
+
 type gestureFunction = (e: TouchEvent) => void;
+type clickFunction = (e: MouseEvent) => void;
 
 export class Gesture {
 
@@ -7,12 +10,21 @@ export class Gesture {
     onTap: gestureFunction | undefined;
     onDoubleTap: gestureFunction | undefined;
 
+    onClick: clickFunction | undefined;
+
     private tapedTwice = false;
     private tapTimeout: number | undefined;
 
     constructor(element: HTMLElement) {
-        element.addEventListener("touchstart", (e) => {
-            this.detectDouble(e, this.onTap, this.onDoubleTap);
+        if (!Utils.isAppleMobileDevice()) {
+            element.addEventListener("touchstart", (e) => {
+                this.detectDouble(e, this.onTap, this.onDoubleTap);
+            });
+        }
+        element.addEventListener("click", (e) => {
+            if (this.onClick) {
+                this.onClick(e);
+            }
         });
     }
 
