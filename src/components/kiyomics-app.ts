@@ -39,6 +39,10 @@ export default class KiyomicsApp extends HTMLElement {
         this.appendChild(loadingScreen);
         // Remove loading screen when all images are loaded.
         document.addEventListener(EventsEnum.LOADING_END, () => {
+
+            const firstImg = this.container?.getElementsByTagName('img')[0] as HTMLImageElement;
+            phoneStarter.getElementsByTagName('div')[0].style.backgroundImage = `url(${firstImg.src})`;
+
             setTimeout(() => {
                 loadingScreen.classList.add("disabled");
                 setTimeout(() => {
