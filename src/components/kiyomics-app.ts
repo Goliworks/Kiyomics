@@ -20,9 +20,8 @@ export default class KiyomicsApp extends HTMLElement {
         this.style.height = `${this.height}px`;
 
         this.initContainer();
-
         const orientationMessage = document.createElement('kiyomics-orientation-message');
-        this.appendChild(orientationMessage);
+
 
         const resizeObserver = new ResizeObserver((entries) => {
             const width = entries[0].contentRect.width + 'px';
@@ -30,8 +29,19 @@ export default class KiyomicsApp extends HTMLElement {
             this.resizeContainer(width, height);
             if ((Utils.isFullscreen() || this.classList.contains('fullscreen')) && this.phoneStarter) {
                 this.phoneStarter.style.display = 'none';
+                this.appendChild(orientationMessage);
+                const exitFullscreenBtn = orientationMessage.getElementsByTagName('button')[0];
+                exitFullscreenBtn.onclick = () => {
+                    this.setFullScreen();
+                    if (this.classList.contains('fullscreen')) {
+                        this.classList.remove("fullscreen");
+                    }
+                }
             } else if (this.phoneStarter) {
                 this.phoneStarter.style.display = 'flex';
+                if (this.getElementsByTagName('kiyomics-orientation-message').length) {
+                    this.removeChild(orientationMessage);
+                }
             }
         });
         resizeObserver.observe(this);
@@ -97,7 +107,11 @@ export default class KiyomicsApp extends HTMLElement {
             }
 
         } else {
-            document.exitFullscreen().finally();
+            if (document.exitFullscreen) {
+                document.exitFullscreen().finally();
+            } else if ((<any>document).webkitExitFullscreen) {
+                (<any>document).webkitExitFullscreen()
+            }
         }
     }
 }

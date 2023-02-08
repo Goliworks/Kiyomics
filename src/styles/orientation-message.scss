@@ -8,6 +8,28 @@ kiyomics-orientation-message {
   justify-content: center;
   align-items: center;
 
+  button {
+    position: absolute;
+    top: 30px;
+    opacity: 0.5;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: bold;
+    animation: 1s ease button-transition;
+  }
+
+  @keyframes button-transition {
+    from {
+      top: -20px;
+      opacity: 0;
+    }
+    to {
+      top: 30px;
+      opacity: 0.5;
+    }
+  }
+
   .phone-icon {
     position: relative;
     animation: 3s infinite running anim-phone-icon;
