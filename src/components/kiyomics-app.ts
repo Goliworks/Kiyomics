@@ -28,7 +28,7 @@ export default class KiyomicsApp extends HTMLElement {
             const width = entries[0].contentRect.width + 'px';
             const height = entries[0].contentRect.height + 'px';
             this.resizeContainer(width, height);
-            if (Utils.isFullscreen() && this.phoneStarter) {
+            if ((Utils.isFullscreen() || this.classList.contains('fullscreen')) && this.phoneStarter) {
                 this.phoneStarter.style.display = 'none';
             } else if (this.phoneStarter) {
                 this.phoneStarter.style.display = 'flex';
@@ -89,8 +89,11 @@ export default class KiyomicsApp extends HTMLElement {
             if (this.requestFullscreen) {
                 this.requestFullscreen().finally();
             } else if ((<any>this).webkitRequestFullscreen) {
-                // for Apple devices.
+                // For Apple devices.
                 (<any>this).webkitRequestFullscreen();
+            } else if (Utils.isMobileDevice(/iPhone/i)) {
+                // Simulate full screen for Iphone devices.
+                this.classList.add('fullscreen');
             }
 
         } else {
