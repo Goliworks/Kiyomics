@@ -11,6 +11,7 @@ kiyomics-orientation-message {
   .phone-icon {
     position: relative;
     animation: 3s infinite running anim-phone-icon;
+
     .arrow {
       position: absolute;
       width: 120px;
@@ -19,60 +20,85 @@ kiyomics-orientation-message {
       top: -30px;
       left: -35px;
       animation: 3s infinite running anim-phone-arrow;
+
       &-line {
         width: 120px;
         height: 120px;
-        border: 2px solid cornflowerblue;
+        border: 2px solid #ee7100;
         border-radius: 100%;
       }
+
       &-head {
         position: absolute;
-        display : inline-block;
-        height : 0;
-        width : 0;
+        display: inline-block;
+        height: 0;
+        width: 0;
         top: 10px;
-        left:13px;
-        border-right : 15px solid transparent;
-        border-bottom : 15px solid cornflowerblue;
+        left: 13px;
+        border-right: 15px solid transparent;
+        border-bottom: 15px solid #ee7100;
       }
     }
+
     .phone {
-      width: 50px;
-      height: 90px;
-      border: 2px solid cornflowerblue;
+      width: 52px;
+      height: 98px;
+      background-color: #ee7100;
       border-radius: 5px;
-      &-glass {
-        position: relative;
-        width: 75%;
-        height: 80%;
-        border: 1px solid cornflowerblue;
-        left: 5px;
-        top: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+
+
+      &-mic {
+        width: 15px;
+        height: 3px;
+        background-color: black;
+        border-radius: 5px;
       }
+
+      &-glass {
+        width: 88%;
+        height: 80%;
+        background-color: black;
+      }
+
       &-button {
-        position: relative;
         width: 8px;
-        height: 5px;
-        border: 1px solid cornflowerblue;
-        left: calc(50% - 5px);
+        height: 8px;
+        background-color: black;
         border-radius: 100%;
-        top:7px
       }
     }
   }
 }
 
 @keyframes anim-phone-icon {
-  0% { rotate: 0deg; }
-  20% { rotate: 0deg; }
-  60% { rotate: -90deg; }
-  100% { rotate: -90deg; }
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(0deg);
+  }
+  60% {
+    transform: rotate(-90deg);
+  }
+  100% {
+    transform: rotate(-90deg);
+  }
 }
 
 @keyframes anim-phone-arrow {
-  0% { opacity: 0; }
-  40% { opacity: 1; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @media all and (orientation: landscape) {
