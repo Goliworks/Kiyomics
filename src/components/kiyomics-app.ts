@@ -1,14 +1,16 @@
 import {Gesture} from "../utils/gesture";
 import {EventsEnum} from "../utils/enums";
+import {Utils} from "../utils/utils";
 
 export default class KiyomicsApp extends HTMLElement {
 
     width: string;
     height: string;
 
-    phoneStarterGesture: Gesture;
+    phoneStarterGesture: Gesture | undefined;
 
     container: HTMLElement | undefined;
+    phoneStarter: HTMLElement | undefined;
 
     constructor() {
         super();
@@ -25,23 +27,31 @@ export default class KiyomicsApp extends HTMLElement {
         const resizeObserver = new ResizeObserver((entries) => {
             const width = entries[0].contentRect.width + 'px';
             const height = entries[0].contentRect.height + 'px';
-            this.resizeContainer(width, height)
+            this.resizeContainer(width, height);
+            if (Utils.isFullscreen() && this.phoneStarter) {
+                this.phoneStarter.style.display = 'none';
+            } else if (this.phoneStarter) {
+                this.phoneStarter.style.display = 'flex';
+            }
         });
         resizeObserver.observe(this);
 
-        const phoneStarter = document.createElement('kiyomics-phone-starter');
-        this.appendChild(phoneStarter);
-        this.phoneStarterGesture = new Gesture(phoneStarter);
-        this.initTouch();
-
+        if (Utils.isMobileDevice()) {
+            this.phoneStarter = document.createElement('kiyomics-phone-starter');
+            this.appendChild(this.phoneStarter);
+            this.phoneStarterGesture = new Gesture(this.phoneStarter);
+            this.initTouch();
+        }
         // Add loading screen
         const loadingScreen = document.createElement('kiyomics-loading');
         this.appendChild(loadingScreen);
         // Remove loading screen when all images are loaded.
         document.addEventListener(EventsEnum.LOADING_END, () => {
 
-            const firstImg = this.container?.getElementsByTagName('img')[0] as HTMLImageElement;
-            phoneStarter.getElementsByTagName('div')[0].style.backgroundImage = `url(${firstImg.src})`;
+            if (this.phoneStarter) {
+                const firstImg = this.container?.getElementsByTagName('img')[0] as HTMLImageElement;
+                this.phoneStarter.getElementsByTagName('div')[0].style.backgroundImage = `url(${firstImg.src})`;
+            }
 
             setTimeout(() => {
                 loadingScreen.classList.add("disabled");
@@ -60,11 +70,10 @@ export default class KiyomicsApp extends HTMLElement {
     }
 
     private initTouch() {
-        this.phoneStarterGesture.onTap = () => {
-            this.setFullScreen();
-        }
-        this.phoneStarterGesture.onClick = () => {
-            this.setFullScreen();
+        if (this.phoneStarterGesture) {
+            this.phoneStarterGesture.onClick = () => {
+                this.setFullScreen();
+            }
         }
     }
 

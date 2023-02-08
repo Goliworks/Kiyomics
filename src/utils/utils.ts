@@ -21,4 +21,8 @@ export class Utils {
     static isAppleMobileDevice(): boolean {
         return /iPhone|iPad|iPod/i.test(navigator.userAgent);
     }
+
+    static isFullscreen() {
+        return document.fullscreenElement?.nodeName === 'KIYOMICS-APP';
+    }
 }

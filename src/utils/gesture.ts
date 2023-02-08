@@ -1,5 +1,3 @@
-import {Utils} from "./utils";
-
 type gestureFunction = (e: TouchEvent) => void;
 type clickFunction = (e: MouseEvent) => void;
 
@@ -15,9 +13,9 @@ export class Gesture {
     private tapedTwice = false;
     private tapTimeout: number | undefined;
 
-    constructor(element: HTMLElement) {
-        if (!Utils.isAppleMobileDevice()) {
-            element.addEventListener("touchstart", (e) => {
+    constructor(element: HTMLElement, type = 'click') {
+        if (type === 'tap') {
+            element.addEventListener("touchend", (e) => {
                 this.detectDouble(e, this.onTap, this.onDoubleTap);
             });
         }
@@ -29,6 +27,7 @@ export class Gesture {
     }
 
     private detectDouble(event: TouchEvent, single: gestureFunction | undefined, double: gestureFunction | undefined) {
+        event.preventDefault();
         if (!this.tapedTwice) {
             this.tapedTwice = true;
             this.tapTimeout = setTimeout(() => {
@@ -38,7 +37,6 @@ export class Gesture {
                 this.tapedTwice = false;
             }, this.tapDelay);
         } else {
-            event.preventDefault();
             clearTimeout(this.tapTimeout);
             if (double) {
                 double(event);
