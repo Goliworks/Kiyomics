@@ -11,5 +11,15 @@ export default defineConfig({
             // the proper extensions will be added
             fileName: 'kiyomics',
         },
+        rollupOptions: {
+            output: {
+                assetFileNames: (assetInfo) => {
+                    if (assetInfo.name == 'style.css') {
+                        return 'kiyomics.style.css';
+                    }
+                    return assetInfo.name;
+                },
+            }
+        }
     },
 })
