@@ -7,6 +7,7 @@ kiyomics-phone-starter {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  flex-direction: column;
 
   > div {
     position: absolute;
@@ -19,8 +20,8 @@ kiyomics-phone-starter {
   }
 
   button {
-    width: 125px;
-    height: 125px;
+    width: 100px;
+    height: 100px;
     padding: 0;
     border-radius: 100%;
     position: relative;
@@ -28,7 +29,7 @@ kiyomics-phone-starter {
     justify-content: center;
     align-items: center;
     background-color: rgba(255, 255, 255, 0.3);
-    border: 8px solid #ee7100;
+    border: 6px solid #ee7100;
 
     &::after {
       position: absolute;
@@ -36,9 +37,17 @@ kiyomics-phone-starter {
       height: 0;
       width: 0;
       margin-left: 12px;
-      border-top: 30px solid transparent;
-      border-bottom: 30px solid transparent;
-      border-left: 40px solid #ee7100;
+      border-top: 20px solid transparent;
+      border-bottom: 20px solid transparent;
+      border-left: 30px solid #ee7100;
     }
+  }
+
+  span {
+    position: absolute;
+    font-family: helvetica;
+    color: black;
+    bottom: 30px;
+    opacity: 0.6;
   }
 }
