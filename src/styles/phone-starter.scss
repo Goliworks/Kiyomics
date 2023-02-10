@@ -30,6 +30,7 @@ kiyomics-phone-starter {
     align-items: center;
     background-color: rgba(255, 255, 255, 0.3);
     border: 6px solid #ee7100;
+    animation: 0.8s ease-in infinite alternate glow;
 
     &::after {
       position: absolute;
@@ -49,5 +50,14 @@ kiyomics-phone-starter {
     color: black;
     bottom: 30px;
     opacity: 0.6;
+  }
+}
+
+@keyframes glow {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.5;
   }
 }
