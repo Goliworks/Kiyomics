@@ -32,7 +32,8 @@ export default class KiyomicsApp extends HTMLElement {
                 this.appendChild(orientationMessage);
                 const exitFullscreenBtn = orientationMessage.getElementsByTagName('button')[0];
                 exitFullscreenBtn.onclick = () => {
-                    this.setFullScreen();
+                    const event = new Event(EventsEnum.FULLSCREEN);
+                    document.dispatchEvent(event);
                     if (this.classList.contains('fullscreen')) {
                         this.classList.remove("fullscreen");
                     }
@@ -70,6 +71,10 @@ export default class KiyomicsApp extends HTMLElement {
                 }, 600); // same value in ms than css fade out.
             }, 300); // same value in ms than css progress animation + 100ms.
         });
+
+        document.addEventListener(EventsEnum.FULLSCREEN, () => {
+            this.setFullScreen();
+        });
     }
 
     private initContainer() {
@@ -82,7 +87,8 @@ export default class KiyomicsApp extends HTMLElement {
     private initTouch() {
         if (this.phoneStarterGesture) {
             this.phoneStarterGesture.onClick = () => {
-                this.setFullScreen();
+                const event = new Event(EventsEnum.FULLSCREEN);
+                document.dispatchEvent(event);
             }
         }
     }

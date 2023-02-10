@@ -10,10 +10,14 @@ export default class Container extends HTMLElement {
     constructor() {
         super();
         const lsUrl = this.getAttribute("src");
+        
         if (lsUrl) {
             this.preloadImages(lsUrl);
         }
-        this.initFullscreenBtn();
+
+        if (!Utils.isMobileDevice()) {
+            this.initFullscreenBtn();
+        }
     }
 
     private preloadImages(url: string) {
@@ -132,5 +136,18 @@ export default class Container extends HTMLElement {
                 fullscreenBtn.classList.remove('display')
             }
         }
+        fullscreenBtn.onclick = () => {
+            const event = new Event(EventsEnum.FULLSCREEN);
+            document.dispatchEvent(event);
+        }
+        document.addEventListener(EventsEnum.FULLSCREEN, () => {
+            // The condition test the opposite because the fullscreen
+            // action is activated after the event.
+            if (!Utils.isFullscreen()) {
+                fullscreenBtn.innerText = "Exit fullscreen";
+            } else {
+                fullscreenBtn.innerText = "Fullscreen";
+            }
+        })
     }
 }

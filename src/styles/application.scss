@@ -19,6 +19,7 @@ kiyomics-container {
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   justify-content: center;
+  z-index: 0;
 
   button.fullscreen {
     position: absolute;
@@ -38,6 +39,10 @@ kiyomics-container {
       bottom: 15px;
       opacity: 0.9;
       cursor: pointer;
+
+      &:hover {
+        background-color: #ffffff;
+      }
     }
   }
 }
