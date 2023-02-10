@@ -14,10 +14,31 @@ kiyomics-app {
 
 kiyomics-container {
   position: absolute;
-  display: block;
+  display: flex;
   overflow: hidden;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+  justify-content: center;
+
+  button.fullscreen {
+    position: absolute;
+    bottom: -50px;
+    opacity: 0;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: bold;
+    border: 1px solid #ababab;
+    background-color: #dadada;
+    color: #282828;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.5);
+    transition: bottom 0.5s, opacity 0.5s;
+
+    &.display {
+      bottom: 15px;
+      opacity: 0.9;
+      cursor: pointer;
+    }
+  }
 }
 
 kiyomics-container::selection {
@@ -48,5 +69,8 @@ kiyomics-loading {
   &.disabled {
     opacity: 0;
     transition: opacity 0.6s linear;
+
+    &:hover {
+    }
   }
 }

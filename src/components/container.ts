@@ -13,6 +13,7 @@ export default class Container extends HTMLElement {
         if (lsUrl) {
             this.preloadImages(lsUrl);
         }
+        this.initFullscreenBtn();
     }
 
     private preloadImages(url: string) {
@@ -106,5 +107,28 @@ export default class Container extends HTMLElement {
                 break;
         }
         this.displayFrame(previous);
+    }
+
+    private initFullscreenBtn() {
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.innerText = "Fullscreen";
+        fullscreenBtn.classList.add("fullscreen");
+        this.appendChild(fullscreenBtn);
+        let timeout: number;
+        this.onmousemove = (e) => {
+            const rect = this.getBoundingClientRect()
+            const y = e.clientY - rect.top;
+            if (y >= rect.height - 80) {
+                if (timeout) {
+                    clearTimeout(timeout);
+                }
+                fullscreenBtn.classList.add('display');
+                timeout = setTimeout(() => {
+                    fullscreenBtn.classList.remove('display');
+                }, 2000);
+            } else {
+                fullscreenBtn.classList.remove('display')
+            }
+        }
     }
 }
