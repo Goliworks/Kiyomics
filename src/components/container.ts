@@ -49,20 +49,22 @@ export default class Container extends HTMLElement {
     }
 
     private displayFrame(previousFrame: number | null = null) {
+        const frame = this.frames[this.currentFrame];
         if (previousFrame !== null) {
-            // Avoid possible blinking.
+            // Avoid possible blinking on some navigators.
+            this.frames[previousFrame].style.zIndex = "2";
             setTimeout(() => {
                 this.removeChild(this.frames[previousFrame]);
-            }, 10);
+                this.frames[previousFrame].style.zIndex = "1";
+            }, 20);
         }
-        const frame = this.frames[this.currentFrame];
+        this.appendChild(frame);
         // Force gif replay.
         if (frame.src.includes('blob:') && previousFrame && previousFrame < this.currentFrame) {
             setTimeout(() => {
                 frame.src = frame.src;
-            }, 5);
+            }, 15);
         }
-        this.appendChild(frame);
     }
 
     private initKeyboard() {
