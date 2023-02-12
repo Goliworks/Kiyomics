@@ -7,6 +7,9 @@ export default class Container extends HTMLElement {
     frames: HTMLImageElement[] = [];
     currentFrame = 0;
 
+    replay = document.createElement('kiyomics-replay');
+    replayDisplayed = false;
+
     constructor() {
         super();
         const lsUrl = this.getAttribute("src");
@@ -18,10 +21,6 @@ export default class Container extends HTMLElement {
         if (!Utils.isMobileDevice()) {
             this.initFullscreenBtn();
         }
-
-        // replay
-        const replay = document.createElement('kiyomics-replay');
-        this.appendChild(replay)
     }
 
     private preloadImages(url: string) {
@@ -90,6 +89,7 @@ export default class Container extends HTMLElement {
 
     private initTouch() {
         this.onclick = (e) => {
+            e.preventDefault();
             //  Click left
             if (e.offsetX < this.offsetWidth / 2) {
                 this.changeFrame(ChangeFrameEnum.LEFT);
@@ -105,18 +105,29 @@ export default class Container extends HTMLElement {
         switch (change) {
             case ChangeFrameEnum.LEFT:
                 if (this.currentFrame !== 0) {
-                    previous = this.currentFrame;
-                    this.currentFrame--;
+                    if (this.replayDisplayed) {
+                        this.removeChild(this.replay)
+                        this.replayDisplayed = false;
+                    } else {
+                        previous = this.currentFrame;
+                        this.currentFrame--;
+                        this.displayFrame(previous);
+                    }
                 }
                 break;
             case ChangeFrameEnum.RIGHT:
                 if (this.currentFrame !== this.frames.length - 1) {
                     previous = this.currentFrame;
                     this.currentFrame++;
+                    this.displayFrame(previous);
+                } else {
+                    if (!this.replayDisplayed) {
+                        this.appendChild(this.replay);
+                        this.replayDisplayed = true;
+                    }
                 }
                 break;
         }
-        this.displayFrame(previous);
     }
 
     private initFullscreenBtn() {
