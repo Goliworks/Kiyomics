@@ -124,6 +124,15 @@ export default class Container extends HTMLElement {
                     if (!this.replayDisplayed) {
                         this.appendChild(this.replay);
                         this.replayDisplayed = true;
+                        this.replay.getElementsByTagName('button')[0].onclick = (e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            previous = this.currentFrame;
+                            this.currentFrame = 0;
+                            this.displayFrame(previous);
+                            this.removeChild(this.replay);
+                            this.replayDisplayed = false;
+                        }
                     }
                 }
                 break;
@@ -151,7 +160,9 @@ export default class Container extends HTMLElement {
                 fullscreenBtn.classList.remove('display')
             }
         }
-        fullscreenBtn.onclick = () => {
+        fullscreenBtn.onclick = (e) => {
+            e.stopPropagation();
+            e.preventDefault();
             const event = new Event(EventsEnum.FULLSCREEN);
             document.dispatchEvent(event);
         }
