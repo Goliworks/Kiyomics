@@ -10,7 +10,7 @@ export default class Container extends HTMLElement {
     constructor() {
         super();
         const lsUrl = this.getAttribute("src");
-        
+
         if (lsUrl) {
             this.preloadImages(lsUrl);
         }
@@ -18,6 +18,10 @@ export default class Container extends HTMLElement {
         if (!Utils.isMobileDevice()) {
             this.initFullscreenBtn();
         }
+
+        // replay
+        const replay = document.createElement('kiyomics-replay');
+        this.appendChild(replay)
     }
 
     private preloadImages(url: string) {
