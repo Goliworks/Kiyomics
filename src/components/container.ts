@@ -166,10 +166,9 @@ export default class Container extends HTMLElement {
             const event = new Event(EventsEnum.FULLSCREEN);
             document.dispatchEvent(event);
         }
-        document.addEventListener(EventsEnum.FULLSCREEN, () => {
-            // The condition test the opposite because the fullscreen
-            // action is activated after the event.
-            if (!Utils.isFullscreen()) {
+
+        document.addEventListener('fullscreenchange', () => {
+            if (Utils.isFullscreen()) {
                 fullscreenBtn.innerText = "Exit fullscreen";
             } else {
                 fullscreenBtn.innerText = "Fullscreen";
