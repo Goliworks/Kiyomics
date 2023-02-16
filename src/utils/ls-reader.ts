@@ -12,7 +12,10 @@ export class LsReader {
 
             const lsDoc = lsFile.responseXML;
             const images = lsDoc?.getElementsByTagName("image");
-            const pathFiles = url.replace('lemonslide.xml', '');
+
+            const pathExtract = url.split('/');
+            pathExtract.pop();
+            const pathFiles = pathExtract.join('/') + "/";
             const imgUrls = [];
 
             if (images !== undefined) {
