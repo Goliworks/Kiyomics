@@ -16,8 +16,9 @@ export default class KiyomicsApp extends HTMLElement {
         super();
         this.width = this.getAttribute('width') ?? '0';
         this.height = this.getAttribute('height') ?? '0';
-        this.style.width = `${this.width}px`;
-        this.style.height = `${this.height}px`;
+
+        this.style.width = `${this.width}${isNaN(Number(this.width)) ? '' : 'px'}`;
+        this.style.height = `${this.height}${isNaN(Number(this.height)) ? '' : 'px'}`;
 
         this.initContainer();
         const orientationMessage = document.createElement('kiyomics-orientation-message');
@@ -79,9 +80,9 @@ export default class KiyomicsApp extends HTMLElement {
 
     private initContainer() {
         this.container = document.createElement("kiyomics-container");
-        this.resizeContainer(this.style.width, this.style.height);
         this.container.setAttribute("src", this.getAttribute("src") ?? '');
         this.appendChild(this.container);
+        this.resizeContainer(this.style.width, this.style.height);
     }
 
     private initTouch() {

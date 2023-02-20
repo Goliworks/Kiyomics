@@ -1,7 +1,9 @@
 kiyomics-app {
   position: relative;
+  display: block;
   background: black;
   color: white;
+  overflow: hidden;
 
   &.fullscreen {
     position: fixed !important;
