@@ -8,6 +8,8 @@ kiyomics-phone-starter {
   align-items: center;
   overflow: hidden;
   flex-direction: column;
+  container-type: size;
+  container-name: phone-starter;
 
   > div {
     position: absolute;
@@ -19,7 +21,7 @@ kiyomics-phone-starter {
     filter: blur(5px);
   }
 
-  button {
+  button.start-btn {
     width: 100px;
     height: 100px;
     padding: 0;
@@ -59,5 +61,12 @@ kiyomics-phone-starter {
   }
   to {
     opacity: 0.5;
+  }
+}
+
+@container phone-starter (max-height: 220px) {
+  span {
+    bottom: 15px !important;
+    color: red;
   }
 }

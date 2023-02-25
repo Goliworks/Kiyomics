@@ -2,7 +2,7 @@ export default class OrientationMessage extends HTMLElement {
     constructor() {
         super();
         this.innerHTML = `
-            <button>Exit fullscreen</button>
+            <button class="exit-fullscreen">Exit fullscreen</button>
             <div class="phone-icon">
                 <div class="arrow">
                     <div class="arrow-line"></div>

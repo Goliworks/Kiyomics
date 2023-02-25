@@ -3,7 +3,7 @@ export default class PhoneStarter extends HTMLElement {
         super();
         this.innerHTML = `
             <div></div>
-            <button></button>
+            <button class="start-btn"></button>
             <span>Powered by <b>Kiyomics</b></span>
         `;
     }
