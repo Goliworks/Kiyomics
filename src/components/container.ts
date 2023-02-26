@@ -124,14 +124,18 @@ export default class Container extends HTMLElement {
                     if (!this.replayDisplayed) {
                         this.appendChild(this.replay);
                         this.replayDisplayed = true;
-                        this.replay.getElementsByTagName('button')[0].onclick = (e) => {
-                            e.stopPropagation();
-                            e.preventDefault();
-                            previous = this.currentFrame;
-                            this.currentFrame = 0;
-                            this.displayFrame(previous);
-                            this.removeChild(this.replay);
-                            this.replayDisplayed = false;
+                        console.log(this.replay.shadowRoot?.getElementById("replay-button"));
+                        const replayButton = this.replay.shadowRoot?.getElementById("replay-button");
+                        if (replayButton) {
+                            replayButton.onclick = (e) => {
+                                e.stopPropagation();
+                                e.preventDefault();
+                                previous = this.currentFrame;
+                                this.currentFrame = 0;
+                                this.displayFrame(previous);
+                                this.removeChild(this.replay);
+                                this.replayDisplayed = false;
+                            }
                         }
                     }
                 }

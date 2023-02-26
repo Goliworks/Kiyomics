@@ -1,6 +1,7 @@
 export default class Replay extends HTMLElement {
     constructor() {
         super();
-        this.innerHTML = `<button class="replay-btn">Replay</button>`;
+        const shadowRoot = this.attachShadow({mode: 'open'});
+        shadowRoot.innerHTML = `<button part="replay-button" id="replay-button">Replay</button>`;
     }
 }
